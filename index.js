@@ -1,4 +1,3 @@
-
 /*
  * gulp-supervisor
  * https://github.com/leny/gulp-supervisor
@@ -45,7 +44,10 @@ module.exports = function(sScript, oOptions) {
   if (kindOf(oOptions.pollInterval) === "number") {
     aOptions.push("--poll-interval", "" + oOptions.pollInterval);
   }
-  if (kindOf(oOptions.noRestartOn) === "string" && (oOptions.noRestartOn === "error" || oOptions.noRestartOn === "exit")) {
+  if (
+    kindOf(oOptions.noRestartOn) === "string" &&
+    (oOptions.noRestartOn === "success" || oOptions.noRestartOn === "error" || oOptions.noRestartOn === "exit")
+  ) {
     aOptions.push("--no-restart-on", oOptions.noRestartOn);
   }
   if (oOptions.debug === true) {
@@ -62,6 +64,9 @@ module.exports = function(sScript, oOptions) {
   }
   if (oOptions.quiet === true) {
     aOptions.push("--quiet");
+  }
+  if (oOptions.exitGracefully === true) {
+    aOptions.push("--exit-gracefully");
   }
   aOptions.push("--", sScript);
   if (kindOf(oOptions.args) === "array") {

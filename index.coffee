@@ -29,16 +29,16 @@ module.exports = ( sScript, oOptions = {} ) ->
     aOptions.push "--exec", oOptions.exec if kindOf( oOptions.exec ) is "string"
 
     aOptions.push "--poll-interval", "#{ oOptions.pollInterval }" if kindOf( oOptions.pollInterval ) is "number"
-    aOptions.push "--no-restart-on", oOptions.noRestartOn if kindOf( oOptions.noRestartOn ) is "string" and ( oOptions.noRestartOn is "error" or oOptions.noRestartOn is "exit" )
+    aOptions.push "--no-restart-on", oOptions.noRestartOn if kindOf( oOptions.noRestartOn ) is "string" and ( oOptions.noRestartOn is "error" or oOptions.noRestartOn is "exit" or oOptions.noRestartOn is "success" )
 
     aOptions.push "--debug" if oOptions.debug is yes
     aOptions.push "--debug-brk" if oOptions.debugBrk is yes
     aOptions.push "--harmony" if oOptions.harmony is yes
     aOptions.push "--force-watch" if oOptions.forceWatch is yes
     aOptions.push "--quiet" if oOptions.quiet is yes
+    aOptions.push "--exit-gracefully" if oOptions.exitGracefully is yes
 
     aOptions.push "--", sScript
     aOptions.push oOptions.args... if kindOf( oOptions.args ) is "array"
 
     supervisor.run aOptions
-
